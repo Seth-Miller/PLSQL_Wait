@@ -32,20 +32,30 @@ CREATE PUBLIC SYNONYM WAITSECONDS FOR SYSTEM.WAITSECONDS;
       BEGIN
          FOR LOOP_CNT IN 1 .. NUMLOOP_CNT
          LOOP
-            DEBUG ('The loop count in the WAIT function is: ' || LOOP_CNT);
-            FLAG := UTL_FILE.FOPEN (L_DIR, F_FILENAME, 'R');
-            UTL_FILE.GET_LINE (FLAG, FLAG_OUT);
-            UTL_FILE.FCLOSE (FLAG);
-            DEBUG (
-               'The flag file value in the WAIT function is: ' || FLAG_OUT);
+            /* Create DEBUG procedure
+	    DEBUG ('The loop count in the WAIT function is: ' || LOOP_CNT);
+            DEBUG ('The flag file value in the WAIT function is: ' || FLAG_OUT);
+	    */
 
-            IF FLAG_OUT = 'ready'
+	    /* Put logic in here or leave blank for just a wait */
+
+	    /* Put if-then here
+            IF SOMETHING = 'ready'
             THEN
                RETURN TRUE;
             ELSE
+	    */
                waitSeconds (SLEEP_CNT);
-            END IF;
+            -- END IF;
          END LOOP;
 
          RETURN FALSE;
       END WAIT;
+
+
+/* Use this in your procedure if you want to exit after time out
+            IF NOT WAIT
+            THEN
+               EXIT;
+            END IF;
+*/
