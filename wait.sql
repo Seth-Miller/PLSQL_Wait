@@ -19,22 +19,21 @@ AS
 END WAITSECONDS;
 /
 
-GRANT EXECUTE ON SYSTEM.WAITSECONDS TO BKUPADM;
+GRANT EXECUTE ON SYSTEM.WAITSECONDS TO <user>;
 CREATE PUBLIC SYNONYM WAITSECONDS FOR SYSTEM.WAITSECONDS;
 
 
       FUNCTION WAIT
          RETURN BOOLEAN
       IS
-         LOOP_CNT   NUMBER;
-         FLAG       UTL_FILE.FILE_TYPE;
-         FLAG_OUT   VARCHAR2 (50);
+         LOOP_CNT    NUMBER;
+	 NUMLOOP_CNT NUMBER;
+	 SLEEP_CNT   NUMBER;
       BEGIN
          FOR LOOP_CNT IN 1 .. NUMLOOP_CNT
          LOOP
             /* Create DEBUG procedure
 	    DEBUG ('The loop count in the WAIT function is: ' || LOOP_CNT);
-            DEBUG ('The flag file value in the WAIT function is: ' || FLAG_OUT);
 	    */
 
 	    /* Put logic in here or leave blank for just a wait */
